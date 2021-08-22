@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyle = makeStyles(() => ({
+const useStyle = makeStyles((theme) => ({
   form: {
     display: "flex",
     justifyContent: "space-between",

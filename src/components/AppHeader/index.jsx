@@ -6,6 +6,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
+import Brightness5Icon from "@material-ui/icons/Brightness5";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
 import SearchIcon from "@material-ui/icons/Search";
 
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function AppHeader({ toggleTheme, theme }) {
   const classes = useStyles();
 
   return (
@@ -72,8 +73,12 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
           <div>
-            <IconButton aria-label="change theme" color="inherit">
-              <Brightness4Icon />
+            <IconButton
+              aria-label="change theme"
+              color="inherit"
+              onClick={toggleTheme}
+            >
+              {theme ? <Brightness5Icon /> : <Brightness4Icon />}
             </IconButton>
             <IconButton
               edge="end"

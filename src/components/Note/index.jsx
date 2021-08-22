@@ -9,7 +9,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyle = makeStyles((theme) => ({
   note: {
-    background: "#FFF",
     padding: "13px 20px",
     borderRadius: "5px",
     display: "flex",

@@ -3,7 +3,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 
-const useStyle = makeStyles(() => ({
+const useStyle = makeStyles((theme) => ({
   notesHeader: {
     display: "flex",
     justifyContent: "space-between",

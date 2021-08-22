@@ -12,6 +12,8 @@ import { createTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 export default function App() {
+  const [activeTheme, setActiveTheme] = React.useState(false);
+
   React.useEffect(() => {
     db.collection("todos")
       .get()
@@ -26,24 +28,64 @@ export default function App() {
       });
   }, []);
 
-  const theme = createTheme({
+  const lightTheme = createTheme({
     palette: {
       primary: {
-        main: "#078ADE",
+        main: "#64b5f6",
+        light: "#9be7ff",
+        dark: "#2286c3",
       },
       secondary: {
-        main: "#64B9F9",
+        main: "#1565c0",
+        light: "#5e92f3",
+        dark: "#003c8f",
       },
     },
   });
 
-  console.log(theme);
+  const darkTheme = createTheme({
+    palette: {
+      type: "dark",
+      primary: {
+        main: "#212121",
+        light: "#484848",
+        dark: "#000000",
+      },
+      secondary: {
+        main: "#424242",
+        light: "#6d6d6d",
+        dark: "#1b1b1b",
+      },
+    },
+  });
+
+  // const darkTheme = createTheme({
+  //   palette: {
+  //     type: "dark",
+  //     primary: {
+  //       main: "#081B33",
+  //     },
+  //     secondary: {
+  //       main: "#006DC6",
+  //     },
+  //     background: {
+  //       default: "#152642",
+  //       paper: "#006DC6",
+  //     },
+  //   },
+  // });
+
+  console.log(darkTheme);
+
+  const toggleActiveTheme = () => {
+    setActiveTheme(!activeTheme);
+  };
 
   return (
     <div className="App">
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={!activeTheme ? lightTheme : darkTheme}>
         <CssBaseline />
-        <AppHeader />
+        <AppHeader toggleTheme={toggleActiveTheme} theme={activeTheme} />
         <Container maxWidth="sm">
           <NewNote />
           <NotesHeader />
