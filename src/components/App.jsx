@@ -1,32 +1,35 @@
 import React from "react";
-
-import { db } from "../firebase";
-import AppHeader from "./AppHeader";
-import NewNote from "./NewNote";
-import NotesHeader from "./NotesHeader";
-import Container from "@material-ui/core/Container";
-import Note from "./Note";
-import FooterMenu from "./FooterMenu";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import Container from "@material-ui/core/Container";
+
+import { db, googleSignin } from "../firebase";
+
+import AppHeader from "./AppHeader";
+import NewNote from "./NewNote";
+import NotesHeader from "./NotesHeader";
+import Note from "./Note";
+import FooterMenu from "./FooterMenu";
+import AuthPopup from "./AuthPopup";
 
 export default function App() {
   const [activeTheme, setActiveTheme] = React.useState(false);
 
-  React.useEffect(() => {
-    db.collection("todos")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
-        });
-      })
-      .catch((error) => {
-        console.log("Error getting documents: ", error);
-      });
-  }, []);
+  // React.useEffect(() => {
+  //   db.collection("todos")
+  //     .get()
+  //     .then((querySnapshot) => {
+  //       querySnapshot.forEach((doc) => {
+  //         console.log(doc.id, " => ", doc.data());
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error getting documents: ", error);
+  //     });
+  // }, []);
+
+  // googleSignin();
 
   const lightTheme = createTheme({
     palette: {
@@ -59,24 +62,6 @@ export default function App() {
     },
   });
 
-  // const darkTheme = createTheme({
-  //   palette: {
-  //     type: "dark",
-  //     primary: {
-  //       main: "#081B33",
-  //     },
-  //     secondary: {
-  //       main: "#006DC6",
-  //     },
-  //     background: {
-  //       default: "#152642",
-  //       paper: "#006DC6",
-  //     },
-  //   },
-  // });
-
-  console.log(darkTheme);
-
   const toggleActiveTheme = () => {
     setActiveTheme(!activeTheme);
   };
@@ -85,13 +70,14 @@ export default function App() {
     <div className="App">
       <ThemeProvider theme={!activeTheme ? lightTheme : darkTheme}>
         <CssBaseline />
-        <AppHeader toggleTheme={toggleActiveTheme} theme={activeTheme} />
+        <AuthPopup />
+        {/* <AppHeader toggleTheme={toggleActiveTheme} theme={activeTheme} />
         <Container maxWidth="sm">
           <NewNote />
           <NotesHeader />
           <Note />
         </Container>
-        <FooterMenu />
+        <FooterMenu /> */}
       </ThemeProvider>
     </div>
   );
