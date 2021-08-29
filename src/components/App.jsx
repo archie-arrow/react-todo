@@ -1,10 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
-
-import { db, googleSignin } from "../firebase";
 
 import AppHeader from "./AppHeader";
 import NewNote from "./NewNote";
@@ -15,21 +14,7 @@ import AuthPopup from "./AuthPopup";
 
 export default function App() {
   const [activeTheme, setActiveTheme] = React.useState(false);
-
-  // React.useEffect(() => {
-  //   db.collection("todos")
-  //     .get()
-  //     .then((querySnapshot) => {
-  //       querySnapshot.forEach((doc) => {
-  //         console.log(doc.id, " => ", doc.data());
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error getting documents: ", error);
-  //     });
-  // }, []);
-
-  // googleSignin();
+  const logged = useSelector((state) => state.account.logged);
 
   const lightTheme = createTheme({
     palette: {
@@ -70,14 +55,20 @@ export default function App() {
     <div className="App">
       <ThemeProvider theme={!activeTheme ? lightTheme : darkTheme}>
         <CssBaseline />
-        <AuthPopup />
-        {/* <AppHeader toggleTheme={toggleActiveTheme} theme={activeTheme} />
-        <Container maxWidth="sm">
-          <NewNote />
-          <NotesHeader />
-          <Note />
-        </Container>
-        <FooterMenu /> */}
+
+        {!logged ? (
+          <AuthPopup />
+        ) : (
+          <>
+            <AppHeader toggleTheme={toggleActiveTheme} theme={activeTheme} />
+            <Container maxWidth="sm">
+              <NewNote />
+              <NotesHeader />
+              <Note />
+            </Container>
+            <FooterMenu />
+          </>
+        )}
       </ThemeProvider>
     </div>
   );

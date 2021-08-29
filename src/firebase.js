@@ -15,24 +15,22 @@ const db = firebase.firestore();
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
-function googleSignin() {
+function googleSignin(f) {
   firebase
     .auth()
 
     .signInWithPopup(provider)
-    .then(function (result) {
-      var token = result.credential.accessToken;
-      var user = result.user;
+    .then((res) => {
+      const token = res.credential.accessToken;
+      const user = res.user;
 
-      console.log(token);
-      console.log(user);
+      f({ token, user });
     })
     .catch(function (error) {
       var errorCode = error.code;
       var errorMessage = error.message;
 
-      console.log(error.code);
-      console.log(error.message);
+      return { errorCode, errorMessage };
     });
 }
 
