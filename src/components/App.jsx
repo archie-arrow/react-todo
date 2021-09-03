@@ -12,9 +12,15 @@ import Note from "./Note";
 import FooterMenu from "./FooterMenu";
 import AuthPopup from "./AuthPopup";
 
+import { db, setData } from "../firebase";
+
 export default function App() {
   const [activeTheme, setActiveTheme] = React.useState(false);
   const logged = useSelector((state) => state.account.logged);
+
+  console.log(db);
+
+  setData();
 
   const lightTheme = createTheme({
     palette: {

@@ -11,7 +11,7 @@ firebase.initializeApp({
   appId: "1:860332836225:web:46298103de4e8c3554d480",
 });
 
-const db = firebase.firestore();
+// authorization
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -23,6 +23,10 @@ function googleSignin(f) {
     .then((res) => {
       const token = res.credential.accessToken;
       const user = res.user;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("uid", user.uid);
+      localStorage.setItem("logged", true);
 
       f({ token, user });
     })
@@ -49,4 +53,24 @@ function googleSignout() {
     );
 }
 
-export { db, googleSignin };
+// firebase
+
+const db = firebase.firestore();
+
+async function setData(doc, title) {
+  db.collection("todos")
+    .doc("123")
+    .set({
+      name: "Los Angeles",
+      state: "CA",
+      country: "USA",
+    })
+    .then(() => {
+      console.log("Document successfully written!");
+    })
+    .catch((error) => {
+      console.error("Error writing document: ", error);
+    });
+}
+
+export { db, googleSignin, setData };

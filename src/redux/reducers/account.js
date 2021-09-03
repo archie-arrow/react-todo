@@ -1,9 +1,7 @@
 const initialState = {
-  logged: false,
-  info: {
-    user: null,
-    token: null,
-  },
+  logged: localStorage.getItem("logged"),
+  uid: localStorage.getItem("uid"),
+  token: localStorage.getItem("token"),
 };
 
 const account = (state = initialState, action) => {
@@ -12,7 +10,8 @@ const account = (state = initialState, action) => {
       return {
         ...state,
         logged: true,
-        info: action.payload,
+        uid: action.payload.user.uid,
+        token: action.payload.token,
       };
     default:
       return state;
