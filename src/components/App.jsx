@@ -18,9 +18,13 @@ export default function App() {
   const [activeTheme, setActiveTheme] = React.useState(false);
   const logged = useSelector((state) => state.account.logged);
 
-  console.log(db);
+  // console.log(db);
 
-  setData();
+  // setData();
+
+  React.useEffect(() => {
+    setActiveTheme(localStorage.getItem("dark") === "true");
+  });
 
   const lightTheme = createTheme({
     palette: {
@@ -55,6 +59,7 @@ export default function App() {
 
   const toggleActiveTheme = () => {
     setActiveTheme(!activeTheme);
+    localStorage.setItem("dark", !activeTheme);
   };
 
   return (
