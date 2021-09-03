@@ -73,4 +73,21 @@ async function setData(doc, title) {
     });
 }
 
-export { db, googleSignin, setData };
+function getData() {
+  const docRef = db.collection("todos").doc("123");
+
+  docRef
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        console.log("Document data:", doc.data());
+      } else {
+        console.log("No such document!");
+      }
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+    });
+}
+
+export { db, googleSignin, googleSignout, setData, getData };

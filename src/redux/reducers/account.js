@@ -13,6 +13,13 @@ const account = (state = initialState, action) => {
         uid: action.payload.user.uid,
         token: action.payload.token,
       };
+    case "LOG_OUT":
+      return {
+        ...state,
+        logged: false,
+        uid: null,
+        token: null,
+      };
     default:
       return state;
   }

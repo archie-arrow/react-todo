@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -9,6 +10,9 @@ import Brightness4Icon from "@material-ui/icons/Brightness4";
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
 import SearchIcon from "@material-ui/icons/Search";
+
+import { googleSignout } from "../../firebase";
+import { setLogout } from "../../redux/actions/account";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -50,6 +54,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppHeader({ toggleTheme, theme }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    googleSignout();
+    dispatch(setLogout());
+    localStorage.clear();
+  };
 
   return (
     <div className={classes.grow}>
@@ -84,6 +95,7 @@ export default function AppHeader({ toggleTheme, theme }) {
               edge="end"
               aria-label="logout of account"
               color="inherit"
+              onClick={handleLogout}
             >
               <LogoutIcon />
             </IconButton>

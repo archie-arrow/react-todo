@@ -12,19 +12,19 @@ import Note from "./Note";
 import FooterMenu from "./FooterMenu";
 import AuthPopup from "./AuthPopup";
 
-import { db, setData } from "../firebase";
+import { db, setData, getData } from "../firebase";
 
 export default function App() {
-  const [activeTheme, setActiveTheme] = React.useState(false);
+  const [activeTheme, setActiveTheme] = React.useState(
+    localStorage.getItem("dark") === "true"
+  );
   const logged = useSelector((state) => state.account.logged);
 
   // console.log(db);
 
   // setData();
 
-  React.useEffect(() => {
-    setActiveTheme(localStorage.getItem("dark") === "true");
-  });
+  getData();
 
   const lightTheme = createTheme({
     palette: {

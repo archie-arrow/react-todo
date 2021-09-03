@@ -3,4 +3,8 @@ const setLogged = (payload) => ({
   payload,
 });
 
-export { setLogged };
+const setLogout = () => ({
+  type: "LOG_OUT",
+});
+
+export { setLogged, setLogout };
