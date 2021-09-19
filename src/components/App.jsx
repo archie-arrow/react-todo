@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
@@ -7,13 +8,15 @@ import Container from "@material-ui/core/Container";
 
 import AppHeader from "./AppHeader";
 import NewNote from "./NewNote";
-import NotesHeader from "./NotesHeader";
-import Notes from "./Notes";
 import FooterMenu from "./FooterMenu";
 import AuthPopup from "./AuthPopup";
+import AllPage from "./AllPage";
 
 import { db } from "../firebase";
 import { setData } from "../redux/actions/todo";
+import FavPage from "./FavPage";
+import DonePage from "./DonePage";
+import UndonePage from "./UndonePage";
 
 export default function App() {
   const [activeTheme, setActiveTheme] = React.useState(
@@ -82,21 +85,26 @@ export default function App() {
   return (
     <div className="App">
       <ThemeProvider theme={!activeTheme ? lightTheme : darkTheme}>
-        <CssBaseline />
-
-        {!logged ? (
-          <AuthPopup />
-        ) : (
-          <>
-            <AppHeader toggleTheme={toggleActiveTheme} theme={activeTheme} />
-            <Container maxWidth="sm">
-              <NewNote />
-              <NotesHeader />
-              <Notes />
-            </Container>
-            <FooterMenu />
-          </>
-        )}
+        <Router>
+          <CssBaseline />
+          {!logged ? (
+            <AuthPopup />
+          ) : (
+            <>
+              <AppHeader toggleTheme={toggleActiveTheme} theme={activeTheme} />
+              <Container maxWidth="sm">
+                <NewNote />
+                <Switch>
+                  <Route exact path="/" component={AllPage}></Route>
+                  <Route exact path="/favorite" component={FavPage}></Route>
+                  <Route exact path="/done" component={DonePage}></Route>
+                  <Route exact path="/undone" component={UndonePage}></Route>
+                </Switch>
+              </Container>
+              <FooterMenu />
+            </>
+          )}
+        </Router>
       </ThemeProvider>
     </div>
   );
