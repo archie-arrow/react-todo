@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -8,23 +8,19 @@ import Container from "@material-ui/core/Container";
 import AppHeader from "./AppHeader";
 import NewNote from "./NewNote";
 import NotesHeader from "./NotesHeader";
-import Note from "./Note";
+import Notes from "./Notes";
 import FooterMenu from "./FooterMenu";
 import AuthPopup from "./AuthPopup";
 
-import { db, setData, getData } from "../firebase";
+import { db } from "../firebase";
+import { setData } from "../redux/actions/todo";
 
 export default function App() {
   const [activeTheme, setActiveTheme] = React.useState(
     localStorage.getItem("dark") === "true"
   );
   const logged = useSelector((state) => state.account.logged);
-
-  // console.log(db);
-
-  // setData();
-
-  getData();
+  const uid = useSelector((state) => state.account.uid);
 
   const lightTheme = createTheme({
     palette: {
@@ -62,6 +58,27 @@ export default function App() {
     localStorage.setItem("dark", !activeTheme);
   };
 
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (uid) {
+      const docRef = db.collection("todos").doc(uid);
+
+      docRef
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            dispatch(setData(doc.data()));
+          } else {
+            db.collection("todos").doc(uid).set({});
+          }
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    }
+  }, [dispatch, uid]);
+
   return (
     <div className="App">
       <ThemeProvider theme={!activeTheme ? lightTheme : darkTheme}>
@@ -75,7 +92,7 @@ export default function App() {
             <Container maxWidth="sm">
               <NewNote />
               <NotesHeader />
-              <Note />
+              <Notes />
             </Container>
             <FooterMenu />
           </>

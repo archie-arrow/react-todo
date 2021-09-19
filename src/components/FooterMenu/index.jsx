@@ -11,10 +11,10 @@ import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 const useStyle = makeStyles((theme) => ({
   root: {
     background: theme.palette.primary.main,
-    position: "absolute",
+    position: "fixed",
     bottom: 0,
-    right: 0,
     left: 0,
+    right: 0,
   },
   icon: {
     color: "#fff",
