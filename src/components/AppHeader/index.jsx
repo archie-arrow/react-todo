@@ -13,6 +13,7 @@ import SearchIcon from "@material-ui/icons/Search";
 
 import { googleSignout } from "../../firebase";
 import { setLogout } from "../../redux/actions/account";
+import { setData } from "../../redux/actions/todo";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -59,6 +60,7 @@ export default function AppHeader({ toggleTheme, theme }) {
   const handleLogout = () => {
     googleSignout();
     dispatch(setLogout());
+    dispatch(setData({}));
     localStorage.clear();
   };
 

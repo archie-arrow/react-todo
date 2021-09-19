@@ -62,32 +62,6 @@ export default function FooterMenu() {
           to="/undone"
           icon={<HighlightOffOutlinedIcon color="inherit" />}
         />
-
-        {/* <Link to="/" onClick={() => setValue(0)}>
-          <Tab
-            className={value === 0 ? classes.iconActive : classes.icon}
-            icon={<DescriptionOutlinedIcon color="inherit" />}
-          />
-        </Link>
-
-        <Link to="/favorite" onClick={() => setValue(1)}>
-          <Tab
-            className={value === 1 ? classes.iconActive : classes.icon}
-            icon={<FavoriteBorderOutlinedIcon />}
-          />
-        </Link>
-        <Link to="/done" onClick={() => setValue(2)}>
-          <Tab
-            className={value === 2 ? classes.iconActive : classes.icon}
-            icon={<CheckCircleOutlinedIcon />}
-          />
-        </Link>
-        <Link to="/undone" onClick={() => setValue(3)}>
-          <Tab
-            className={value === 3 ? classes.iconActive : classes.icon}
-            icon={<HighlightOffOutlinedIcon />}
-          />
-        </Link> */}
       </Tabs>
     </Box>
   );

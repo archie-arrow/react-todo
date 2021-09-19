@@ -15,7 +15,6 @@ const account = (state = initialState, action) => {
       };
     case "LOG_OUT":
       return {
-        ...state,
         logged: false,
         uid: null,
         token: null,
