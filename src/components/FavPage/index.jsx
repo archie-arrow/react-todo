@@ -5,13 +5,24 @@ import Notes from "../Notes";
 import Note from "../Note";
 import NotesHeader from "../NotesHeader";
 
-export default function FavPage() {
+export default function FavPage({ searchInput }) {
   const data = useSelector((state) => state.todo.data);
 
   let list = [];
 
   for (let key in data) {
-    if (data[key].fav) {
+    if (searchInput !== undefined && searchInput !== "") {
+      if (
+        data[key].title.toLowerCase().includes(searchInput.toLowerCase()) &&
+        data[key].fav
+      ) {
+        list.push(
+          <Note todoId={key} key={key}>
+            {data[key].title}
+          </Note>
+        );
+      }
+    } else {
       list.push(
         <Note todoId={key} key={key}>
           {data[key].title}

@@ -53,7 +53,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AppHeader({ toggleTheme, theme }) {
+export default function AppHeader({
+  toggleTheme,
+  theme,
+  searchInput,
+  updateSearchInput,
+}) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -71,19 +76,21 @@ export default function AppHeader({ toggleTheme, theme }) {
           <Typography className={classes.title} variant="h6" noWrap>
             React Todo
           </Typography>
-          <div className={classes.search}>
+          <form className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
               placeholder="Search…"
+              input={searchInput}
+              onChange={updateSearchInput}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
             />
-          </div>
+          </form>
           <div className={classes.grow} />
           <div>
             <IconButton

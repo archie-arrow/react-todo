@@ -22,6 +22,8 @@ export default function App() {
   const [activeTheme, setActiveTheme] = React.useState(
     localStorage.getItem("dark") === "true"
   );
+  const [searchInput, setSearchInput] = React.useState("");
+
   const logged = useSelector((state) => state.account.logged);
   const uid = useSelector((state) => state.account.uid);
 
@@ -61,6 +63,10 @@ export default function App() {
     localStorage.setItem("dark", !activeTheme);
   };
 
+  const updateSearchInput = (e) => {
+    setSearchInput(e.target.value);
+  };
+
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -91,14 +97,27 @@ export default function App() {
             <AuthPopup />
           ) : (
             <>
-              <AppHeader toggleTheme={toggleActiveTheme} theme={activeTheme} />
+              <AppHeader
+                toggleTheme={toggleActiveTheme}
+                theme={activeTheme}
+                searchInput={searchInput}
+                updateSearchInput={updateSearchInput}
+              />
               <Container maxWidth="sm">
                 <NewNote />
                 <Switch>
-                  <Route exact path="/" component={AllPage}></Route>
-                  <Route exact path="/favorite" component={FavPage}></Route>
-                  <Route exact path="/done" component={DonePage}></Route>
-                  <Route exact path="/undone" component={UndonePage}></Route>
+                  <Route exact path="/">
+                    <AllPage searchInput={searchInput} />
+                  </Route>
+                  <Route exact path="/favorite">
+                    <FavPage searchInput={searchInput} />
+                  </Route>
+                  <Route exact path="/done">
+                    <DonePage searchInput={searchInput} />
+                  </Route>
+                  <Route exact path="/undone">
+                    <UndonePage searchInput={searchInput} />
+                  </Route>
                 </Switch>
               </Container>
               <FooterMenu />
