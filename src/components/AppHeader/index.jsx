@@ -19,10 +19,17 @@ const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
     marginBottom: "80px",
+    [theme.breakpoints.down("xs")]: {
+      justifyContent: "space-between",
+      flexGrow: 1,
+    },
   },
   title: {
     display: "block",
     fontWeight: 500,
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+    },
   },
   search: {
     position: "relative",
@@ -34,9 +41,12 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
     marginLeft: theme.spacing(3),
     width: "auto",
+    [theme.breakpoints.down("xs")]: {
+      width: "50%",
+    },
   },
   searchIcon: {
-    padding: theme.spacing(0, 2),
+    padding: theme.spacing(0, 1),
     height: "100%",
     position: "absolute",
     pointerEvents: "none",
