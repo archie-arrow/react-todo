@@ -106,16 +106,16 @@ export default function App() {
               <Container maxWidth="sm">
                 <NewNote />
                 <Switch>
-                  <Route exact path="/">
+                  <Route exact path="/react-todo/">
                     <AllPage searchInput={searchInput} />
                   </Route>
-                  <Route exact path="/favorite">
+                  <Route exact path="/react-todo/favorite">
                     <FavPage searchInput={searchInput} />
                   </Route>
-                  <Route exact path="/done">
+                  <Route exact path="/react-todo/done">
                     <DonePage searchInput={searchInput} />
                   </Route>
-                  <Route exact path="/undone">
+                  <Route exact path="/react-todo/undone">
                     <UndonePage searchInput={searchInput} />
                   </Route>
                 </Switch>

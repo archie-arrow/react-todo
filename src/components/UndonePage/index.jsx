@@ -23,11 +23,13 @@ export default function UndonePage({ searchInput }) {
         );
       }
     } else {
-      list.push(
-        <Note todoId={key} key={key}>
-          {data[key].title}
-        </Note>
-      );
+      if (!data[key].done) {
+        list.push(
+          <Note todoId={key} key={key}>
+            {data[key].title}
+          </Note>
+        );
+      }
     }
   }
 

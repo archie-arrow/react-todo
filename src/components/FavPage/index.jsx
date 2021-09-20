@@ -23,11 +23,13 @@ export default function FavPage({ searchInput }) {
         );
       }
     } else {
-      list.push(
-        <Note todoId={key} key={key}>
-          {data[key].title}
-        </Note>
-      );
+      if (data[key].fav) {
+        list.push(
+          <Note todoId={key} key={key}>
+            {data[key].title}
+          </Note>
+        );
+      }
     }
   }
 

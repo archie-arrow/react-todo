@@ -41,25 +41,25 @@ export default function FooterMenu() {
         <Tab
           onClick={() => setValue(0)}
           component={Link}
-          to="/"
+          to="./"
           icon={<DescriptionOutlinedIcon color="inherit" />}
         />
         <Tab
           onClick={() => setValue(1)}
           component={Link}
-          to="/favorite"
+          to="./favorite"
           icon={<FavoriteBorderOutlinedIcon color="inherit" />}
         />
         <Tab
           onClick={() => setValue(2)}
           component={Link}
-          to="/done"
+          to="./done"
           icon={<CheckCircleOutlinedIcon color="inherit" />}
         />
         <Tab
           onClick={() => setValue(3)}
           component={Link}
-          to="/undone"
+          to="./undone"
           icon={<HighlightOffOutlinedIcon color="inherit" />}
         />
       </Tabs>
